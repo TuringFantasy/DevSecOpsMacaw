@@ -41,32 +41,35 @@ applications. Using Macaw DevOps Console, the developers/admins can deploy new s
 deployed services, view logs, and access the service APIs etc.
 
 First users need to login into Macaw Console
-
+![alt text](https://github.com/ZolonTech/DevSecOpsMacaw/blob/master/macawlogin.jpg)
 
 Once they login they will be see all platform services and user services and their status in the dashboard
+![alt text](https://github.com/ZolonTech/DevSecOpsMacaw/blob/master/dashboard.jpg)
 
 They can click on image-manager-service from the Service Clusters Report (users need to scroll down in
 the dashboard to see this report) to get the dashboard for the Image Manager Service
+![alt text](https://github.com/ZolonTech/DevSecOpsMacaw/blob/master/clusterreport.jpg)
 
 The Service Dashboard allows users to manage life cycle of the service. It allows users to provision new
 instances, de-provision existing instances, browse APIs, view logs etc.
-
+![alt text](https://github.com/ZolonTech/DevSecOpsMacaw/blob/master/devopsconsole.jpg)
 
 They can view all available options by clicking on the menu in the Service Instances report. Since we
 have deployed only once instance, there would be only one row in this report. For example users can
 see the Docker Container details by selecting “View Docker Info” menu item
 
 The complete Docker info along with the container logs are shows
-
+![alt text](https://github.com/ZolonTech/DevSecOpsMacaw/blob/master/details.jpg)
 
 ## 4. Browsing APIs
 
 The APIs of Macaw Services can be browsed using Macaw DevOps Console. They can also be accessed
 using REST APIs by interacting with API Gateway. The Macaw API Browser can be invoked by selecting
 “Browse APIs” menu item from the service dashboard
-
+![alt text](https://github.com/ZolonTech/DevSecOpsMacaw/blob/master/browseapi.jpg)
 
 For the demo service we can browse all available APIs using the API Browser
+![alt text](https://github.com/ZolonTech/DevSecOpsMacaw/blob/master/browseapi2.jpg)
 
 For example if “getCustomers” API is selected (and clock on **Post>>** ) , then all available customers are
 shown (as JSON output) on the right side of the window.
