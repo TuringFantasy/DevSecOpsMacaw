@@ -1,0 +1,64 @@
+<html>
+    <head>
+        <script src="jquery-3.3.1.js"></script>
+        <script>
+            $(function() {
+                var token = null;
+                
+                console.log("testing testing");
+                
+                var inputElement = $("#file");
+                inputElement.on("change", onSelectFile);
+                
+                var uploadURL = "app/services/upload";
+                
+                $.get( "app/services/token", function( data ) {
+                    //alert( "Data Loaded: " + data );
+                    console.log(data);
+                    var obj = JSON.parse(data);
+                    token = obj.apiGatewaySessionId;
+                });
+                
+                function onSelectFile(evt) {
+                    //console.log("on file selected");
+                    var files = evt.target.files;
+                    if (files.length === 1) {
+                        //only perform upload if there is ONE file selected
+                        var myFormData = new FormData();
+                        myFormData.append('file', files[0]);
+                        myFormData.append('token', token);
+                        //myFormData.append('customerId', "whitney");
+
+                        var uploadRequest = $.ajax({
+                          url: uploadURL,
+                          type: 'POST',
+                          processData: false, // important
+                          contentType: false, // important
+                          dataType : 'json',
+                          data: myFormData,
+                          success: onUploadSuccess,
+                          error: onUploadError
+                        });
+
+                    }
+                }
+
+                function onUploadSuccess(response, textStatus, jqXHR) {
+                    console.log("file successfully uploaded");
+                }
+
+                function onUploadError(jqXHR, textStatus, errorThrown) {
+                    alert.show("File Upload failed - " + jqXHR.responseText);
+                }
+            });
+        </script>
+    </head>
+    <body>
+        <div>
+            <div>
+                <label for="file">Choose file to upload</label>
+                <input type="file" id="file" name="file">
+            </div>
+        </div>
+    </body>
+</html>

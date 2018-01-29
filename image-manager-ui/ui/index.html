@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>USCIS  DEVSECOPs Demo – Image Upload</title>
+    <link rel='stylesheet prefetch' href='https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.6/angular-material.css'>
+    <link rel='stylesheet prefetch' href='https://material.angularjs.org/1.1.6/docs.css'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src='js/jquery-3.3.1.js'></script>
+    <script src="https://use.fontawesome.com/b9a6c4b6fe.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <md-toolbar style="text-align: left">
+        <div class="md-toolbar-tools">
+            <h1 style="color:#FFF !important;" flex md-truncate>USCIS  DEVSECOPs Demo – Image Upload</h1>
+            <!--  <md-button class="md-icon-button" aria-label="More">
+                <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+            </md-button>-->
+        </div>
+    </md-toolbar>
+
+</head>
+
+<body ng-app="MyApp">
+
+    <div id="imgContentUpload" ng-controller="uploadController">
+<div>
+        <md-input-container style="height: 50px">
+          <label>Customer</label>
+          <md-select ng-model="selectedCustomer">
+            <md-option><em>None</em></md-option>
+            <md-option ng-repeat="customer in customers" ng-value="customer">
+              {{customer.name}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+</div>
+<div style="height: 90px;">    
+        <h2>Image Upload</h2>
+        <p class="lead">Select Image</p>
+</div>
+        <!-- Upload  -->
+<div>
+            <form id="file-upload-form" class="uploader">
+                <input id="file-upload" type="file" name="fileUpload" accept="image/*" />
+
+                <label for="file-upload" id="file-drag">
+                    <img id="file-image" src="#" alt="Preview" class="hidden">
+                    <div id="start">
+                        <i class="fa fa-download" aria-hidden="true"></i>
+                        <div>Select a file or drag here</div>
+                        <div id="notimage" class="hidden">Please select an image</div>
+                        <span id="file-upload-btn" class="btn btn-primary">Select a file</span>
+                    </div>
+                    <div id="response" class="hidden">
+                        <div id="messages"></div>
+                        <progress class="progress" id="file-progress" value="0">
+                            <span>0</span>%
+                        </progress>
+                    </div>
+                </label>
+            </form>
+</div>
+
+<div style="padding: 30%; padding-top: 20%;">
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>Code</label>
+                <input ng-model="code">
+            </md-input-container>
+            <div>
+                <md-button class="md-raised md-primary" style="width: 100%; color: #FFF;" ng-click="uploadImgNow()">Submit</md-button>
+            </div>
+</div>
+
+        <script src='js/jquery-3.3.1.js'></script>
+
+        <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js'></script>
+        <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js'></script>
+        <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.min.js'></script>
+        <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js'></script>
+        <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js'></script>
+        <script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-114/svg-assets-cache.js'></script>
+        <script src='https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.6/angular-material.js'></script>
+        
+        <script src="js/index.js"></script>
+        <script src="js/fileUpload.js"></script>
+        <script src="js/upload-controller.js"></script>
+        <!--<script src="js/controllers/imageInfo.js"></script>-->
+
+    </div>
+
+</body>
+
+</html>

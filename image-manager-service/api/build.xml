@@ -1,0 +1,47 @@
+<project name="image-manager-service 1.0.0 API" basedir="." default="deploy" xmlns:ivy="antlib:org.apache.ivy.ant">
+
+    <property environment="env"/>
+
+    <condition property="ivy.log.level" value="default" else="quiet">
+        <isset property="ivy.log.enabled" />
+    </condition>
+
+    <property name="dist" value="${basedir}/dist"/>
+    <property name="jar.name" value="image-manager-service-api"/>
+
+    <echo message="Ivy Home is ${env.IVY_HOME}"/>
+    <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant">
+        <classpath>
+            <fileset dir="${env.IVY_HOME}">
+                <include name="*.jar"/>
+            </fileset>
+        </classpath>
+    </taskdef>
+    <!-- Load ivysettings.xml from project folder -->
+    <ivy:settings file="../ivysettings.xml"/>
+
+    <target name="clean">
+
+    </target>
+    
+    <target name="makepom" description="Generate POM">
+        <mkdir dir="${dist}"/>
+        <!-- Generate the Maven POM -->
+        <ivy:makepom ivyfile="${basedir}/ivy.xml" pomfile="${dist}/${jar.name}.pom">
+            <ivy:mapping conf="compile" scope="compile"/>
+            <ivy:mapping conf="test" scope="test"/>
+            <ivy:mapping conf="runtime" scope="runtime"/>
+        </ivy:makepom>
+    </target>
+
+    <target name="deploy" depends="makepom" description="Deploy the binaries to the snapshots">
+        <ivy:resolve log="${ivy.log.level}"/>
+        <ivy:publish resolver="local" publishivy="true" overwrite="true">
+            <ivy:artifacts pattern="${basedir}/[artifact].[ext]"/>
+            <ivy:artifacts pattern="${dist}/[artifact].[ext]"/>
+        </ivy:publish>
+    </target>
+
+
+</project>
+

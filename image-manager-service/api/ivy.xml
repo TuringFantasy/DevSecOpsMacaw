@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0">
+    <info organisation="cloudfabrix" module="image-manager-service-api" revision="1.0.0-SNAPSHOT" />
+
+    <configurations defaultconfmapping="compile->default;runtime->runtime">
+        <conf name="compile" description="Required at compile time"/>
+        <conf name="runtime" description="Required at runtime" extends="compile"/>
+        <conf name="default" description="An alias for runtime configuration" extends="runtime"/>
+        <conf name="test" description="Required for tests only" extends="runtime" visibility="private"/>
+        <conf name="internal" description="For artifacts that are not exposed as dependencies" visibility="private"/>
+    </configurations>
+
+    <publications>
+        <artifact name="image-manager-service-api" type="jar"/>
+        <artifact name="image-manager-service-api" type="pom" conf="internal"/>
+    </publications>
+
+    <dependencies>
+        <dependency org="io.macaw" name="macaw-service-api" rev="0.9.5-CR5" />
+        <!-- TODO: get rid of this. Right now needed by JSONConverter -->
+        <dependency org="com.google.code.gson" name="gson" rev="2.3.1" />
+
+        
+        
+        <exclude ext="*" type="source"/>
+        <exclude ext="*" type="javadoc"/>
+
+    </dependencies>
+</ivy-module>
+

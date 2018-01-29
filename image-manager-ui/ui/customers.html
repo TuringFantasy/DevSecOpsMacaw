@@ -1,0 +1,58 @@
+<html>
+    <head>
+        <script src="jquery-3.3.1.js"></script>
+        <script>
+            $(function() {
+                var token = null;
+                
+                console.log("All Customers");
+                
+                var getImageURL = "app/services/image"
+                
+                $.get( "app/services/token", function( data ) {
+                    console.log(data);
+                    var obj = JSON.parse(data);
+                    token = obj.apiGatewaySessionId;
+                    getCustomers();
+                });
+                
+                function getCustomers() {
+                    var params = {};
+                    
+                    var args = {};
+                    args.methodName = "getCustomers";
+                    var methodArgs = [];
+                    params.params = methodArgs;
+                    args.params = params;
+                    args.token = token;
+                    
+                    var serviceRequestDescriptor = {"serviceRequestDescriptor": args};
+                    
+                    var str = JSON.stringify(serviceRequestDescriptor);
+                    $.post( "app/services/api", str)
+                    .done(function( data ) {
+                        var response = JSON.parse(data);
+                        var serviceResult = response.serviceResult;
+                        console.log(response);
+                        var items = "<tr><th>Id</th><th>Name</th><th>Description</th><th>Address</th><th>Date of Birth</th><th>Email</th></tr>";
+                        var customerList = $("#customer-list");
+                        for (var i=0; i<serviceResult.length; i++) {
+                            var customer = serviceResult[i];
+                            var itemHTML = "<tr><td>" + customer.id + "</td><td>" + customer.name + "</td><td>" + customer.description + "</td><td>" + customer.address + "</td><td>" + customer.dob + "</td><td>" + customer.emailId + "</td></tr>";
+                            items += itemHTML;
+                        }
+                        
+                        customerList.append(items);
+                    });
+                }
+            });
+        </script>
+    </head>
+    <body>
+        <h1>All customers</h1>
+        <div>
+            <table id="customer-list">
+            </table>
+        </div>
+    </body>
+</html>

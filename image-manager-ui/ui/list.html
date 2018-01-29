@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>USCIS  DEVSECOPs Demo – Image Approval</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+
+    <link rel='stylesheet prefetch' href='https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.6/angular-material.css'>
+    <link rel='stylesheet prefetch' href='https://material.angularjs.org/1.1.6/docs.css'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="list_css/style.css">
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+
+
+</head>
+
+<body ng-app="MyApp" ng-controller="listController">
+
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2 style="color:#FFF !important;" flex md-truncate>USCIS  DEVSECOPs Demo – Image Approval</h2>
+            <!--  <md-button class="md-icon-button" aria-label="More">
+                <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+            </md-button>-->
+        </div>
+    </md-toolbar>
+    <div style="height: 80px">
+    <md-input-container style="margin-top: 35px; width: 145px;margin-left: 25px;">
+      <label>Customer</label>
+      <md-select ng-model="selectedCustomer">
+        <md-option><em>None</em></md-option>
+        <md-option ng-repeat="customer in customers" ng-value="customer">
+          {{customer.name}}
+        </md-option>
+      </md-select>
+    </md-input-container>
+    </div>
+    <div>
+        <div style="overflow: scroll">
+
+            <md-content>
+
+                <md-tabs md-dynamic-height md-border-bottom>
+                   
+                    <md-tab label="All Images">
+                       
+                        <h2 style="padding: 20px;">Image List</h2>
+                        <md-content class="md-padding">
+
+                            <card-images data="allImages"></card-images>
+
+                        </md-content>
+                    </md-tab>
+                     <md-tab label="Pending Images">
+                       
+                        <h2 style="padding: 20px;">Image List</h2>
+                        <md-content class="md-padding">
+
+                            <card-images data="pendingImages"></card-images>
+
+                        </md-content>
+                    </md-tab>
+                     <md-tab label="Accepted Images">
+                       
+                        <h2 style="padding: 20px;">Image List</h2>
+                        <md-content class="md-padding">
+
+                            <card-images data="acceptedImages"></card-images>
+
+                        </md-content>
+                    </md-tab>
+                     <md-tab label="Rejected Images">
+                       
+                        <h2 style="padding: 20px;">Image List</h2>
+                        <md-content class="md-padding">
+
+                            <card-images data="rejectedImages"></card-images>
+
+                        </md-content>
+                    </md-tab>
+                    
+                </md-tabs>
+            </md-content>
+        </div>
+    </div>
+
+    <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js'></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js'></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.min.js'></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js'></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js'></script>
+    <script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-114/svg-assets-cache.js'></script>
+    <script src='https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.6/angular-material.js'></script>
+    <script src="list_js/index.js"></script>
+    <script src="list_js/directives/cardImages.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!--<script src="js/controllers/imageInfo.js"></script>-->
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,26 @@
+<ivysettings>
+    <settings defaultResolver="default-resolver"/>
+
+    <property name="nexus-public" value="http://10.97.130.127:8081/content/groups/public"/>
+    <property name="nexus-releases" value="http://10.97.130.127:8081/content/repositories/releases"/>
+    <property name="nexus-snapshots" value="http://10.97.130.127:8081/content/repositories/snapshots"/>
+    <property name="ivy.local.default.root" value="${user.home}/.ivy2/local"/>
+    <property name="ivy.local.default.ivy.pattern" value="[organisation]/[module]/[revision]/[type]s/[artifact]-[revision].[ext]"/>
+    <property name="ivy.local.default.artifact.pattern" value="[organisation]/[module]/[revision]/[type]s/[artifact]-[revision].[ext]"/>
+
+    <resolvers>
+        <filesystem name="local" checkmodified="true" changingPattern=".*SNAPSHOT">
+            <ivy pattern="${ivy.local.default.root}/${ivy.local.default.ivy.pattern}"/>
+            <artifact pattern="${ivy.local.default.root}/${ivy.local.default.artifact.pattern}"/>
+        </filesystem>
+        <ibiblio name="nexus" m2compatible="true" root="${nexus-public}"/>
+        <ibiblio name="nexus-releases" m2compatible="true" root="${nexus-releases}"/>
+        <ibiblio name="nexus-snapshots" m2compatible="true" root="${nexus-snapshots}" checkmodified="true" changingPattern=".*SNAPSHOT"/>
+
+        <chain name="default-resolver" returnFirst="true">
+            <resolver ref="local"/>
+            <resolver ref="nexus"/>
+        </chain>
+    </resolvers>
+</ivysettings>
+

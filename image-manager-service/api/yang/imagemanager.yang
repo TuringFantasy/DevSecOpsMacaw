@@ -1,0 +1,269 @@
+module image-manager-service {
+
+    namespace "http://macaw.io/service/image-manager";
+    prefix "ai";
+    
+    yang-version 1;
+
+    import macaw-exception {
+      prefix e;
+    }
+
+    import macaw-service-extension {
+        prefix s;
+    }
+
+    organization "CloudFabrix Software Inc.";
+    contact yang-model-info@macaw.io;
+
+    description "This service manages images";
+        
+    revision 2018-01-23 {
+        description "First Version";
+    }
+	
+	container service-def {
+        s:service-name "image-manager-service";
+        s:options {
+            s:java-options {
+                s:service-interface-class-simple-name: "ImageManagerService";
+                s:service-impl-class-simple-name: "ImageManagerService";
+            }
+        }
+    }
+
+    grouping image {        
+        container image {
+            description "image class";
+            
+            leaf id {
+                type string;
+                description "Unique ID of the image";
+            }
+
+            leaf customer-id {
+                type string;
+                description "Unique code of the customer";
+            }
+            
+            leaf name {
+                type string;
+                mandatory true;
+                description "Name of the image";
+            }
+
+            leaf url {
+                type string;
+                mandatory true;
+                description "Url of the image";
+            }
+
+            leaf object {
+                type binary;
+                description "Image in binary format";
+            }            
+
+            leaf description{
+                type string;
+                description "Detailed description of the image";
+            }     
+
+            leaf created-date {
+                type uint64;
+                description "Creation date(milliseconds) of the image";
+            }
+        }
+    }
+
+    grouping source-info {
+         container source-info {
+            leaf url {
+                type string;
+                mandatory true;
+                description "Url of the image";
+            }
+        }
+    }
+
+    grouping customer {
+        container customer {
+            description "customer class";
+
+            leaf id {
+                type string;
+                mandatory true;
+                description "Id of the customer so that it is unique";
+            }
+            
+            leaf name {
+                type string;
+                mandatory true;
+                description "Name of the customer";
+            }
+            
+            leaf address {
+                type string;
+                description "Address name of the customer";
+            }
+            
+            leaf description {
+                type string;
+                description "Description of the customer";
+            }
+
+            leaf dob {
+                type uint64;
+                description "DOB of the customer";
+            }
+
+            leaf email-id {
+                type string;
+                mandatory false;
+                description "Email id of the customer.";
+            }
+        }
+    }
+
+
+    typedef approval-status {
+        type enumeration {
+            enum pending;
+            enum approved;
+            enum denied;
+            enum all;            
+        }
+        default pending;
+    }
+
+    grouping approval {
+        container approval {
+            description "approval record class";
+
+            uses customer;
+            
+            uses image;
+
+            leaf status {
+                type approval-status;
+                description "Status of the approval";
+            }            
+
+            leaf reason {
+                type string;
+                description "Reason message for the status";
+            }           
+        }
+    }
+
+    grouping approvals {
+        list approvals {
+            uses approval;
+        }
+    }
+
+    grouping customers {
+        list customers {
+            uses customer;
+        }
+    }
+
+    rpc get-approvals {
+        description "Return approvals";
+
+        e:throws {
+            e:exception image-manager-service-exception;
+        }
+
+        input {
+            leaf status {
+                type approval-status;
+                description "Status of the approval";
+            } 
+
+            leaf customer-id {
+                type string;
+                mandatory true;
+                description "Id of the customer";
+            }
+        }
+
+        output {
+           uses approvals;
+        }
+    }
+
+    rpc update-approval {
+        e:throws {
+            e:exception image-manager-service-exception;
+        }
+        description "Update approval";
+
+        input {            
+            leaf customer-id {
+                type string;
+                mandatory true;
+                description "Id of the customer so that it is unique";
+            }
+
+            leaf image-id {
+                type string;
+                description "Unique ID of the image";
+            }
+
+            leaf status {
+                type approval-status;
+                description "Status of the approval";
+            }            
+
+            leaf reason {
+                type string;
+                description "Reason message for the status";
+            }  
+        }
+    }
+
+    rpc upload-image {
+        description "Uploads image using source url.";
+
+        e:throws {
+            e:exception image-manager-service-exception;
+        }
+
+        input {
+            uses image;  
+            uses source-info;
+        }
+
+        output {
+            uses image;
+        }
+    } 
+
+    rpc create-customer {
+        description "Create customer";
+
+        e:throws {
+            e:exception image-manager-service-exception;
+        }
+
+        input {
+            uses customer;
+        }
+
+        output {
+            uses customer;
+        }
+    }
+
+    rpc get-customers {
+        description "Get all customers";
+
+        e:throws {
+            e:exception image-manager-service-exception;
+        }
+
+        output {
+            uses customers;
+        }
+    }
+}
